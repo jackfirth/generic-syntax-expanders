@@ -8,6 +8,8 @@
                      (for-syntax racket/base
                                  syntax/parse)))
 
+(provide define-syntax-with-expanders)
+
 (define-for-syntax (disp a) (displayln a) a)
 
 (define-for-syntax syntax-list? (and? syntax? (compose list? syntax->list)))

@@ -14,8 +14,7 @@ Sometimes complex Racket macros need a way for their syntax to be extended. The 
 
 If a user of this macro wished for a way to specify a range of numbers as the arguments, the user must define their own version of call-each with support for ranges that expands to using the original call-each. However, this racket package provides a form, define-syntax-with-expanders:
 
-    (require generic-syntax-expanders
-            (for-syntax racket/list))
+    (require generic-syntax-expanders)
     
     (define-syntax-with-expanders call-each
       (syntax-parser

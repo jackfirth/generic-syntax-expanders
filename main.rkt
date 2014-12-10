@@ -1,5 +1,5 @@
 #lang racket
 
-(require "define-with-expanders.rkt")
+(require "generic-syntax-expanders.rkt")
 
-(provide (all-from-out "define-with-expanders.rkt"))
+(provide (all-from-out "generic-syntax-expanders.rkt"))

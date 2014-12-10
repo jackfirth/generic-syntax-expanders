@@ -3,7 +3,7 @@ generic-syntax-expanders
 
 A Racket package for creating macros with built-in support for defining sub-macros within them, similar to match expanders
 
-Sometimes complex Racket macros need ways to extend their syntax. For example, in the `match` form new patterns can be created for `match` using `define-match-expander`. This package provides a form for defining a macro with the ability to define expanders for the macro. Consider this contrived example:
+Sometimes complex Racket macros need ways to extend their syntax. For example, in the `match` form new patterns can be created for `match` using `define-match-expander`. This package provides a form for defining a macro with the ability to define expanders for that macro. Consider this contrived example:
 
     (define-syntax call-each
       (syntax-parser

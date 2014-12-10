@@ -2,36 +2,9 @@
 
 (require syntax/parse/define
          (for-syntax syntax/parse
-                     syntax/parse/define
-                     racket/syntax
-                     predicates
-                     (for-syntax racket/base
-                                 syntax/parse)))
+                     "stx-utils.rkt"))
 
 (provide define-syntax-with-expanders)
-
-(define-for-syntax (disp a) (displayln a) a)
-
-(define-for-syntax syntax-list? (and? syntax? (compose list? syntax->list)))
-(define-for-syntax (identifier-bound-to? p)
-  (and? identifier? (compose p maybe-syntax-local-value)))
-
-(define-for-syntax (maybe-syntax-local-value stx)
-  (syntax-local-value stx (λ () #f)))
-
-(define-for-syntax ((stx-expander expand? transformer) stx)
-  (if (expand? stx)
-      (transformer stx)
-      (syntax-parse stx
-        [(a . b) #`(#,((stx-expander expand? transformer) #'a)
-                    #,@((stx-expander expand? transformer) #'b))]
-        [() #'()]
-        [a #'a])))
-
-(begin-for-syntax
-  (define-simple-macro (with-derived-ids ([pat-id:id format base-id-stx] ...) stx-expr)
-    (with-syntax ([pat-id (format-id base-id-stx format base-id-stx)] ...)
-      stx-expr)))
 
 (define-syntax define-syntax-with-expanders
   (syntax-parser
@@ -46,13 +19,11 @@
            (define-syntax foo
              (compose transformer-expr
                       (stx-expander
-                       (compose
-                        (list-with-head? (identifier-bound-to? foo-expander?))
-                        syntax->list)
-                       (λ (expander-stx)
-                         (call-expander foo-expander-transformer
-                                        (car (syntax->list expander-stx))
-                                        expander-stx)))))))]))
+                        (syntax-list-with-head? (identifier-bound-to? foo-expander?))
+                        (λ (expander-stx)
+                          (call-expander foo-expander-transformer
+                                         (car (syntax->list expander-stx))
+                                         expander-stx)))))))]))
 
 ;; Helpers for define-syntax-with-expanders
 
@@ -74,14 +45,3 @@
 ;; calls that transformer on stx-to-expand
 (define-for-syntax (call-expander accessor expander-stx stx-to-expand)
   ((accessor (syntax-local-value expander-stx)) stx-to-expand))
-
-(define-syntax-with-expanders foo
-  (syntax-parser
-    [(_ blah ...)
-     #'(blah ...)]))
-
-(define-foo-expander baz
-  (syntax-parser
-    [(_ n:number blah)
-     #'blah]))
-

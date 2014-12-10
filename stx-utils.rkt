@@ -39,6 +39,8 @@
         [() #'()]
         [a #'a])))
 
+;; Shorthand for adding new identifiers based on other formatted ones to
+;; syntax patterns
 (define-simple-macro (with-derived-ids ([pat-id:id format base-id-stx] ...) stx-expr)
   (with-syntax ([pat-id
                  (format-id base-id-stx

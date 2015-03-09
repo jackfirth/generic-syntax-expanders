@@ -1,5 +1,8 @@
 #lang info
 
-(define name "generic-syntax-expanders")
-(define deps '("base" "predicates" "scribble-lib"))
-(define scribblings '(("scribblings.scrbl")))
+(define collection 'multi)
+(define deps '("base" "rackunit-lib"))
+(define build-deps '("cover"
+                     "scribble-lib"
+                     "rackunit-lib"
+                     "racket-doc"))

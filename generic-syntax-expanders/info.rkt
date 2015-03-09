@@ -1,4 +1,4 @@
 #lang info
 
-(define name "package-name")
-(define scribblings '(("package-name.scrbl" ())))
+(define name "generic-syntax-expanders")
+(define scribblings '(("docs/generic-syntax-expanders.scrbl" ())))

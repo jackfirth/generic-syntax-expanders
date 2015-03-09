@@ -13,7 +13,6 @@
      (with-derived-ids #'name ([?-expander-type "~a-expander-type"]
                                [make-?-expander "make-~a-expander"]
                                [?-expander? "~a-expander?"]
-                               [?-expander-stx? "~a-expander-stx?"]
                                [define-?-expander "define-~a-expander"]
                                [expand-all-?-expanders "expand-all-~a-expanders"])
                        #'(begin
@@ -22,8 +21,6 @@
                              (expander ?-expander-type transformer))
                            (define-for-syntax (?-expander? v)
                              (expander-of-type? ?-expander-type v))
-                           (define-for-syntax (?-expander-stx? v)
-                             (expander-stx-of-type? ?-expander-type v))
                            (define-syntax-rule (define-?-expander expander-name transformer)
                              (define-syntax expander-name (make-?-expander transformer)))
                            (define-for-syntax (expand-all-?-expanders stx)

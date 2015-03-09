@@ -9,7 +9,6 @@
 (provide (struct-out expander)
          (contract-out
           [expander-of-type? (-> expander-type? expander? boolean?)]
-          [expander-stx-of-type? (-> expander-type? expander-stx? boolean?)]
           [expand-syntax-tree-with-expanders-of-type (-> expander-type? syntax? syntax?)]))
 
 (define (maybe-syntax-local-value stx)

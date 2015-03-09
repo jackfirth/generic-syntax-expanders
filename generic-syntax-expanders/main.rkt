@@ -2,5 +2,8 @@
 
 (require mischief)
 
-(require/provide "define-expanders.rkt"
-                 "scoped-transformers.rkt")
+(require/provide "expander-types.rkt"
+                 "expanders.rkt"
+                 "define-expanders.rkt"
+                 "scoped-transformers.rkt"
+                 "define-scoped-transformers.rkt")

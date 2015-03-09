@@ -1,6 +1,8 @@
-compiled/*
+**/compiled
 *.bak
 *.html
 *.css
 *.js
 *.2
+*~
+

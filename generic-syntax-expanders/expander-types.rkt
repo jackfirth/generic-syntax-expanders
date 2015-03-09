@@ -8,7 +8,7 @@
  (contract-out
   [expander-type? predicate/c]
   [make-expander-type (-> expander-type?)]
-  [make-union-expander-type (->* (expander-type?) () #:rest expander-type? expander-type?)]
+  [make-union-expander-type (->* (expander-type?) () #:rest (listof expander-type?) expander-type?)]
   [expander-type-includes? (-> expander-type? expander-type? boolean?)]))
 
 (define (type-includes? symtree-type1 symtree-type2)

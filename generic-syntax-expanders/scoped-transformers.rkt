@@ -13,4 +13,6 @@
   (match pre-transformer-lens-pairs
     ['() transformer]
     [(list (list stx-lens pre-transformer) rest ...)
-     (with-scoped-pre-transformers (with-scoped-pre-transformer stx-lens transformer) rest)]))
+     (define next-transformer
+       (with-scoped-pre-transformer transformer stx-lens transformer))
+     (with-scoped-pre-transformers next-transformer rest)]))

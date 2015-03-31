@@ -1,8 +1,7 @@
 #lang scribble/manual
 
-@(require "example-evaluator.rkt"
-          "defpredicate.rkt"
-          "module-title.rkt"
+@(require package-scribblings-tools
+          "example-evaluator.rkt"
           (for-label racket/base
                      generic-syntax-expanders/expanders
                      generic-syntax-expanders/expander-types))

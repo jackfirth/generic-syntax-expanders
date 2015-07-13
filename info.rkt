@@ -8,7 +8,7 @@
     "rackunit-lib"
     "fancy-app"
     "mischief"
-    "lenses"
+    "lens"
     "point-free"
     "predicates"
     "scribble-lib"

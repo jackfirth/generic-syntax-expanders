@@ -3,7 +3,7 @@
 @(require "example-evaluator.rkt"
           package-scribblings-tools
           (for-label racket/base
-                     lenses
+                     lens
                      generic-syntax-expanders/scoped-transformers
                      generic-syntax-expanders/define-scoped-transformers))
 

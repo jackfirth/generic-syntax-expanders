@@ -1,7 +1,7 @@
 #lang racket
 
 (require  racket/match
-          lenses)
+          lens)
 
 (provide with-scoped-pre-transformer
          with-scoped-pre-transformers)

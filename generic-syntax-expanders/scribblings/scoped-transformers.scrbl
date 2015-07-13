@@ -3,13 +3,13 @@
 @(require "example-evaluator.rkt"
           package-scribblings-tools
           (for-label racket/base
-                     lenses
+                     lens
                      generic-syntax-expanders/define-expanders
                      generic-syntax-expanders/scoped-transformers))
 
 @module-title[generic-syntax-expanders/scoped-transformers]{Lens Scoped Syntax Transformers}
 
-This module uses the @racket[lenses] package to create syntax transformers
+This module uses the @racket[lens] package to create syntax transformers
 that affect only some small subpiece of a syntax object and compose them
 with other transformers. This allows for the creation of a macro that cedes
 control to other macros to pre-expand parts of its body before the macro
@@ -20,7 +20,7 @@ extensible macro.
 
 @defproc[((with-scoped-pre-transformer
            [transformer (-> syntax? syntax?)]
-           [stx-lens (lens/c syntax? syntax?)]
+           [stx-lens lens?]
            [pre-transformer (-> syntax? syntax?)])
           [stx syntax?])
          syntax?]{
@@ -32,7 +32,7 @@ extensible macro.
 @defproc[((with-scoped-pre-transformers
            [transformer (-> syntax? syntax?)]
            [pre-transformer-lens-pairs
-            (listof (list/c (lens/c syntax? syntax?)
+            (listof (list/c lens?
                             (-> syntax? syntax?)))])
           [stx syntax?])
          syntax?]{

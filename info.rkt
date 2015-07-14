@@ -21,3 +21,9 @@
     "rackunit-lib"
     "racket-doc"
     "package-scribblings-tools"))
+
+
+(define test-omit-paths
+  '("info.rkt"
+    "generic-syntax-expanders/info.rkt"
+    "generic-syntax-expanders/scribblings"))

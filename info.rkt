@@ -7,7 +7,7 @@
   '("base"
     "rackunit-lib"
     "fancy-app"
-    "mischief"
+    "reprovide"
     "lens"
     "point-free"
     "predicates"

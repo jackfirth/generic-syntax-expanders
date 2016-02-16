@@ -21,7 +21,7 @@
     "scribble-lib"
     "rackunit-lib"
     "racket-doc"
-    "package-scribblings-tools"))
+    "git://github.com/jackfirth/package-scribblings-tools"))
 
 
 (define test-omit-paths

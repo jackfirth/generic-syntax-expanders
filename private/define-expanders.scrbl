@@ -17,7 +17,7 @@ expanders for use with other macros.
    with @code{id-expander-type}}
  @item{@code{id-expander?} - a predicate bound at phase level 1
    recognizing expanders produced by @code{make-id-expander}}
- @item{@code{define-id-expander?} - a syntactic form at phase level
+ @item{@code{define-id-expander} - a syntactic form at phase level
    0 that takes an identifier and a transformer procedure and binds the
    identifier as a @code{id-expander?} for use in a transformer
    environment}

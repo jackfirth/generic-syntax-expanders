@@ -9,6 +9,6 @@ and friends.
 @defform[(define-syntax-with-scoped-pre-transformers id
            ([stx-lens pre-transformer] ...)
            transformer-expr)]{
- Binds @racket[id] as a syntax transformer equivalent to
- @racket[with-scoped-pre-transformers transformer-expr ([stx-lens pre-transformer] ...)].
+ Binds @racket[id] as a syntax transformer that is equivalent to
+ @racket[(with-scoped-pre-transformers transformer-expr ([stx-lens pre-transformer] ...))].
 }

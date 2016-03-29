@@ -26,7 +26,7 @@ expansion context.
  (define exp (expander A (λ (stx) stx)))
  (expander-of-type? A exp)]}
 
-@defproc[(expand-stx-tree-with-expanders-of-type [type expander-type?] [syntax syntax?]) syntax?]{
+@defproc[(expand-syntax-tree-with-expanders-of-type [type expander-type?] [syntax syntax?]) syntax?]{
  Recursively searches through @racket[syntax] for identifiers bound to
  generic syntax expanders of the given type. When an expander is found,
  its transformer is called with the given syntax value of its location

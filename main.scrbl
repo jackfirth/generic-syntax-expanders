@@ -1,11 +1,9 @@
 #lang scribble/manual
 
-@(require package-scribblings-tools
-          (for-label racket/base
-                     racket/match
-                     generic-syntax-expanders))
+@(require "private/doc-util.rkt")
 
-@module-title[generic-syntax-expanders]{Generic Syntax Expanders}
+@title{Generic Syntax Expanders}
+@defmodule[generic-syntax-expanders]
 @author[@author+email["Jack Firth" "jackhfirth@gmail.com"]]
 
 This library provides forms to define @italic{generic syntax
@@ -22,8 +20,8 @@ extensible.
 
 @source-code{https://github.com/jackfirth/generic-syntax-expanders}
 
-@include-section{expanders.scrbl}
-@include-section{expander-types.scrbl}
-@include-section{define-expanders.scrbl}
-@include-section{scoped-transformers.scrbl}
-@include-section{define-scoped-transformers.scrbl}
+@include-section["private/expanders.scrbl"]
+@include-section["private/expander-types.scrbl"]
+@include-section["private/define-expanders.scrbl"]
+@include-section["private/scoped-transformers.scrbl"]
+@include-section["private/define-scoped-transformers.scrbl"]

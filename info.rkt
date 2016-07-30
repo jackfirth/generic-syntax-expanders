@@ -1,8 +1,7 @@
 #lang info
-
-(define collection 'multi)
-
-
+(define collection "generic-syntax-expanders")
+(define name "generic-syntax-expanders")
+(define scribblings '(("main.scrbl" () (library) "generic-syntax-expanders")))
 (define deps
   '("base"
     "rackunit-lib"
@@ -13,18 +12,13 @@
     "predicates"
     "scribble-lib"
     "scribble-text-lib"))
-
-
 (define build-deps
-  '("cover"
-    "cover-coveralls"
-    "scribble-lib"
+  '("scribble-lib"
     "rackunit-lib"
-    "racket-doc"
-    "git://github.com/jackfirth/package-scribblings-tools"))
-
-
+    "racket-doc"))
+(define compile-omit-paths
+  '("private"))
 (define test-omit-paths
-  '("info.rkt"
-    "generic-syntax-expanders/info.rkt"
-    "generic-syntax-expanders/scribblings"))
+  '(#rx"\\.scrbl$"
+    #rx"info\\.rkt$"
+    #rx"doc-util\\.rkt$"))

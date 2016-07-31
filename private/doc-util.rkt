@@ -10,7 +10,7 @@
 (require (for-label generic-syntax-expanders
                     racket/base
                     racket/contract)
-         scribble/examples
+         scribble/example
          scribble/manual
          scribble/text)
 

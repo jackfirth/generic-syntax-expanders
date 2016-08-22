@@ -25,3 +25,4 @@ extensible.
 @include-section["private/define-expanders.scrbl"]
 @include-section["private/scoped-transformers.scrbl"]
 @include-section["private/define-scoped-transformers.scrbl"]
+@include-section["private/reqprov.scrbl"]

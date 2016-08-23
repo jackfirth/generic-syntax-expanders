@@ -4,9 +4,10 @@
 @title{@racket[require] and @racket[provide] transformers}
 
 @defform[#:kind "require transformer"
-         (expander-in id)]{
+         (expander-in require-spec id)]{
  This @techlink[#:doc '(lib "scribblings/reference/reference.scrbl")]{
-  require transformer} imports the identifiers defined by 
+  require transformer} imports from @racket[require-spec]
+ the identifiers defined by 
  @racket[(define-expander-type id)]:
  @itemlist[@item{@tt{@emph{id}-expander-type}}
            @item{@tt{make-@emph{id}-expander}}

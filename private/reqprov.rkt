@@ -4,7 +4,8 @@
          racket/provide-syntax
          (for-syntax racket/base
                      racket/provide-transform
-                     racket/syntax))
+                     racket/syntax
+                     syntax/parse))
 
 (provide expander-in
          expander-out)
@@ -22,14 +23,12 @@
                   (#,@prefix define-id-expander)
                   (for-syntax (#,@prefix expand-all-id-expanders)))))
 
-(define-require-syntax (expander-in stx)
-  (syntax-case stx ()
-    [(_ id modpath)
-     (identifier? #'id)
-     (reqprov-transformer2 #'id #'combine-in #'(only-in modpath))]))
+(define-require-syntax expander-in
+  (syntax-parser
+    [(_ require-spec id:id)
+     (reqprov-transformer2 #'id #'combine-in #'(only-in require-spec))]))
 
-(define-provide-syntax (expander-out stx)
-  (syntax-case stx ()
-    [(_ id)
-     (identifier? #'id)
+(define-provide-syntax expander-out
+  (syntax-parser
+    [(_ id:id)
      (reqprov-transformer2 #'id #'combine-out #'(combine-out))]))

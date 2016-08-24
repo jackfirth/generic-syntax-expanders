@@ -21,7 +21,6 @@
                                [make-?-expander "make-~a-expander"]
                                [?-expander? "~a-expander?"]
                                [define-?-expander "define-~a-expander"]
-                               [define-?-expander-bug "define-~a-expander-bug"]
                                [expand-all-?-expanders "expand-all-~a-expanders"])
                        #`(begin
                            (define-for-syntax ?-expander-type (make-expander-type))
@@ -29,9 +28,9 @@
                              (expander ?-expander-type transformer))
                            (define-for-syntax (?-expander? v)
                              (expander-of-type? ?-expander-type v))
-                           (define-syntax (define-?-expander stx)
-                             (syntax-case stx ()
-                               [(_ expander-name transformer)
+                           (define-syntax define-?-expander
+                             (syntax-parser
+                               [(_ expander-name:id transformer:expr)
                                 (remove-use-site-scope
                                  #'(define-syntax expander-name (make-?-expander transformer)))]))
                            (define-for-syntax (expand-all-?-expanders stx)

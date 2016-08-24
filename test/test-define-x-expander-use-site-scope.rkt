@@ -1,5 +1,9 @@
 #lang racket
 
+;; This test is a real-world use case for the simplified test in the
+;; test-define-x-expander-use-site-scope-simple.rkt file. See that other
+;; file for more thorrough explanations.
+
 (require syntax/parse
          syntax/parse/experimental/eh
          generic-syntax-expanders
@@ -10,8 +14,7 @@
 
 (define-expander-type eh-mixin)
 
-(begin-for-syntax
-  (define eh-post-accumulate (make-parameter #f)))
+(define-for-syntax eh-post-accumulate (make-parameter #f))
 
 (define-for-syntax (strip-use-site stx)
   (define bd
@@ -59,15 +62,36 @@
   #:post (~fail #:when (and (attribute some-pat)
                             (attribute other-pat))))
 
-(check-equal? (syntax-parse #'(#:some)
-                [((~no-order (aa) (bb))) 'ok])
-              'ok)
+(test-true
+ "Test that `#:some` and `#:other` are mutually exclusive.
+This test will not compile without PR #8.
+* `aa` expands to `(~and some-pat #:some)`
+* `bb` expands to `(~and other-pat #:other)`
+* `bb` injects after the unorderd sequence the check
+       `(and (attribute some-pat) (attribute other-pat))`
+However, without the patch, `some-pat` inside the expression
+ `(and (attribute some-pat) (attribute other-pat))` has an extra
+ scope ¹ added by `define-eh-mixin-expander` on the whole body
+ of `bb`, while the pattern `(~and some-pat #:some)` has an extra
+ scope ² added by `define-eh-mixin-expander` on the whole body
+ of `aa`.
+This means that `some-pat` inside the check is unbound, and the
+ compiler gives an error on the `some-pat` identifier declared
+ above."
+ (syntax-parse #'(#:some #:other)
+   [((~no-order (aa) (bb))) #f]
+   [_ #t]))
 
-(check-equal? (syntax-parse #'(#:other)
-                [((~no-order (aa) (bb))) 'ok])
-              'ok)
+(test-true
+ "Test that `#:some` on its own is accepted.
+ This test will not compile without PR #8 for the same reason as the
+ mutually-exclusive test above."
+ (syntax-parse #'(#:some)
+   [((~no-order (aa) (bb))) #t]))
 
-(check-equal? (syntax-parse #'(#:some #:other)
-                [((~no-order (aa) (bb))) 'wrong]
-                [_ 'ok])
-              'ok)
+(test-true
+ "Test that `#:other` on its own is accepted.
+ This test will not compile without PR #8 for the same reason as the
+ mutually-exclusive test above."
+ (syntax-parse #'(#:other)
+   [((~no-order (aa) (bb))) #t]))

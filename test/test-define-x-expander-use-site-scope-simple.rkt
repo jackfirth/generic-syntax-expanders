@@ -1,8 +1,11 @@
 #lang racket
 
-;; This test is simpler than test-define-x-expander-use-site-scope.rkt,
-;; but is a bit more artificial. For a more realistic use-case, see the
-;; test-define-x-expander-use-site-scope.rkt file.
+;; For a more realistic use-case justifying why this behaviour matters, see the
+;; discussion at https://github.com/jackfirth/generic-syntax-expanders/pull/8
+;; and in particular the test file at
+;;   https://github.com/jsmaniac/generic-syntax-expanders
+;;     /blob/ec43791028715221c678f8536389a39ee760ed98
+;;     /test/test-define-x-expander-use-site-scope.rkt
 
 (require generic-syntax-expanders
          rackunit)

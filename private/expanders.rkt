@@ -22,12 +22,12 @@
 (define (expander-stx? v)
   (and (syntax? v)
        (syntax-parse v
-         [(id:id _ ...) (expander? (maybe-syntax-local-value #'id))]
+         [(id:id . _) (expander? (maybe-syntax-local-value #'id))]
          [_ #f])))
 
 (define (expander-stx->expander expander-stx)
   (syntax-parse expander-stx
-    [(id:id _ ...) (maybe-syntax-local-value #'id)]))
+    [(id:id . _) (maybe-syntax-local-value #'id)]))
 
 (define (expander-stx-of-type? type v)
   (and (expander-stx? v)

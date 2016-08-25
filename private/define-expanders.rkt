@@ -7,6 +7,13 @@
 
 (provide define-expander-type)
 
+(define-for-syntax (remove-use-site-scope stx)
+  (define bd
+    (syntax-local-identifier-as-binding (syntax-local-introduce #'here)))
+  (define delta
+    (make-syntax-delta-introducer (syntax-local-introduce #'here) bd))
+  (delta stx 'remove))
+
 (define-syntax define-expander-type
   (syntax-parser
     [(_ name:id)
@@ -15,13 +22,16 @@
                                [?-expander? "~a-expander?"]
                                [define-?-expander "define-~a-expander"]
                                [expand-all-?-expanders "expand-all-~a-expanders"])
-                       #'(begin
+                       #`(begin
                            (define-for-syntax ?-expander-type (make-expander-type))
                            (define-for-syntax (make-?-expander transformer)
                              (expander ?-expander-type transformer))
                            (define-for-syntax (?-expander? v)
                              (expander-of-type? ?-expander-type v))
-                           (define-syntax-rule (define-?-expander expander-name transformer)
-                             (define-syntax expander-name (make-?-expander transformer)))
+                           (define-syntax define-?-expander
+                             (syntax-parser
+                               [(_ expander-name:id transformer:expr)
+                                (remove-use-site-scope
+                                 #'(define-syntax expander-name (make-?-expander transformer)))]))
                            (define-for-syntax (expand-all-?-expanders stx)
                              (expand-syntax-tree-with-expanders-of-type ?-expander-type stx))))]))

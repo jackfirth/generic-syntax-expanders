@@ -4,15 +4,13 @@
          syntax/parse
          syntax/stx
          predicates
-         fancy-app)
+         fancy-app
+         racket/syntax)
 
 (provide (struct-out expander)
          (contract-out
           [expander-of-type? (-> expander-type? expander? boolean?)]
           [expand-syntax-tree-with-expanders-of-type (-> expander-type? syntax? syntax?)]))
-
-(define (maybe-syntax-local-value stx)
-  (syntax-local-value stx (λ () #f)))
 
 (struct expander (type transformer))
 
@@ -22,12 +20,12 @@
 (define (expander-stx? v)
   (and (syntax? v)
        (syntax-parse v
-         [(id:id . _) (expander? (maybe-syntax-local-value #'id))]
+         [(id:id . _) (syntax-local-value/record #'id expander?)]
          [_ #f])))
 
 (define (expander-stx->expander expander-stx)
   (syntax-parse expander-stx
-    [(id:id . _) (maybe-syntax-local-value #'id)]))
+    [(id:id . _) (syntax-local-value/record #'id expander?)]))
 
 (define (expander-stx-of-type? type v)
   (and (expander-stx? v)
@@ -47,6 +45,7 @@
 
 (define (expand-syntax-tree-with-expanders-of-type type stx)
   (define not-expander-stx-of-type? (not? (expander-stx-of-type? type _)))
-  (expand-syntax-tree not-expander-stx-of-type?
-                      call-expander-transformer
-                      stx))
+  (with-disappeared-uses 
+   (expand-syntax-tree not-expander-stx-of-type?
+                       call-expander-transformer
+                       stx)))

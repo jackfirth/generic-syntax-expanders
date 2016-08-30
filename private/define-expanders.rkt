@@ -27,7 +27,8 @@
                            (define-for-syntax (make-?-expander transformer)
                              (expander ?-expander-type transformer))
                            (define-for-syntax (?-expander? v)
-                             (expander-of-type? ?-expander-type v))
+                             (and (expander? v)
+                                  (expander-of-type? ?-expander-type v)))
                            (define-syntax define-?-expander
                              (syntax-parser
                                [(_ expander-name:id transformer:expr)

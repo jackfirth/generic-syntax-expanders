@@ -23,6 +23,7 @@ expanders for use with other macros.
    environment}
  @item{@code{expand-all-id-expanders} - a procedure bound at phase
    @; TODO: expand-all-expanders-of-type is not documented
-   level 1 that's equivalent to @racket[expand-all-expanders-of-type] with
-   the @code{id-expander-type} as the type argument}
+   level 1 that's equivalent to
+   @racket[expand-syntax-tree-with-expanders-of-type] with the
+   @code{id-expander-type} as the type argument}
  ]}
